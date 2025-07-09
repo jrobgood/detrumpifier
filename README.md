@@ -37,6 +37,17 @@ For more control, you can interact with the extension's popup:
 4.  **Monitor Statistics**: The popup also provides real-time statistics, showing you how many articles were filtered out versus the total number of articles detected on the page, giving you immediate feedback on the extension's activity.
 
 
+## Mobile Support
+
+While Chrome mobile doesn't support extensions, you have several options:
+
+- **Bookmarklet**: Works on any mobile browser (see `MOBILE_USAGE.md`)
+- **Kiwi Browser** (Android): Supports Chrome extensions directly
+- **Firefox Mobile** (Android): Extension support available
+- **Safari** (iOS): Via Userscripts app
+
+See `MOBILE_USAGE.md` for detailed instructions.
+
 VERY INTERESTED to see what people think about this and what enhancements they might want, don't be shy!   
 
 
