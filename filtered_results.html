@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filtered News - Trump Filter</title>
+  <link rel="stylesheet" href="filtered_results.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-content">
+        <h1 class="title">Filtered News Feed</h1>
+        <p class="subtitle">Articles without Trump references</p>
+        <div class="stats">
+          <span class="stat-item">
+            <span class="stat-number" id="articleCount">0</span>
+            <span class="stat-label">articles</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <p>Loading filtered articles...</p>
+      </div>
+
+      <div class="articles-container" id="articlesContainer">
+        <!-- Articles will be dynamically inserted here -->
+      </div>
+
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-icon">📰</div>
+        <h2>No articles found</h2>
+        <p>All articles on the current page contained Trump references and were filtered out.</p>
+        <button class="btn" onclick="window.close()">Close Tab</button>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2024 Trump Filter Extension - Clean news browsing</p>
+    </footer>
+  </div>
+
+  <script src="filtered_results.js"></script>
+</body>
+</html>
+

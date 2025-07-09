@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trump Filter</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Trump Filter</h1>
+      <p class="subtitle">Clean news feed</p>
+    </div>
+    
+    <div class="status" id="status">
+      <div class="status-item">
+        <span class="label">Articles filtered:</span>
+        <span class="value" id="filteredCount">-</span>
+      </div>
+      <div class="status-item">
+        <span class="label">Total articles:</span>
+        <span class="value" id="totalCount">-</span>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button id="filterBtn" class="btn primary">
+        <span class="btn-text">Filter Current Page</span>
+      </button>
+      
+      <button id="newTabBtn" class="btn secondary">
+        <span class="btn-text">Open Filtered View</span>
+      </button>
+    </div>
+    
+    <div class="footer">
+      <p class="info">Removes articles mentioning Donald Trump from Google News</p>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
+
