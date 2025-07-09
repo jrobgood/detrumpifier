@@ -53,15 +53,21 @@ document.addEventListener('DOMContentLoaded', function() {
       <p class="article-content">${escapeHtml(content)}</p>
       <div class="article-meta">
         <span>Article ${index + 1}</span>
-        ${link !== '#' ? '<a href="#" class="read-more">Read more</a>' : ''}
+        ${link && link !== '#' ? '<a href="#" class="read-more" data-link="' + escapeHtml(link) + '">Read more</a>' : ''}
       </div>
     `;
     
     // Add click handler to open original article
-    if (link !== '#') {
+    if (link && link !== '#') {
       card.addEventListener('click', function(e) {
         e.preventDefault();
-        chrome.tabs.create({ url: link });
+        if (e.target.classList.contains('read-more')) {
+          // If clicking on "Read more", open the link
+          chrome.tabs.create({ url: e.target.getAttribute('data-link') });
+        } else {
+          // If clicking anywhere else on the card, open the link
+          chrome.tabs.create({ url: link });
+        }
       });
       
       card.style.cursor = 'pointer';
