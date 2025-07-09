@@ -2,7 +2,7 @@
 This chrome extension will remove any articles with Trump in the headline from your google news feed. This extension only works on Google news pages (for now).  
 ****
 
-This is not a political statement of any kind.  OR, it is a political statement of EVERY KIND!!!!  It's got something to make everyone happy.  
+This is not a political statement of any kind.  OR, it is a political statement of EVERY KIND!!!!  It's got somethign to make everyone happy.  
 
 If you are positive on Trump, this extension will make you happy by removing the mainstream media distortions of his words from your feed.
   
