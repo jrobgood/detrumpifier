@@ -76,7 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Auto-refresh status every 5 seconds
-  setInterval(updateStatus, 5000);
+  // Listen for updates from content script instead of polling
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "statsUpdated" && request.stats) {
+      filteredCount.textContent = request.stats.filtered;
+      totalCount.textContent = request.stats.total;
+    }
+  });
 });
 
