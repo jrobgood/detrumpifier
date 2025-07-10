@@ -1,6 +1,30 @@
 // Track if user has dismissed the snipe
 let snipeDismissed = false;
 
+// Helper function to extract text with proper spacing between elements
+function extractTextWithSpaces(element) {
+  if (!element) return '';
+  
+  // Always use TreeWalker to ensure proper spacing between elements
+  const walker = document.createTreeWalker(
+    element,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  
+  const textParts = [];
+  let node;
+  while (node = walker.nextNode()) {
+    const text = node.textContent.trim();
+    if (text) {
+      textParts.push(text);
+    }
+  }
+  
+  return textParts.join(' ');
+}
+
 // Function to check if text contains Trump references
 function containsTrumpReference(text) {
   // Use word boundary regex patterns for more accurate matching
@@ -51,14 +75,8 @@ function findArticles() {
 
 // Common function to extract article data
 function extractArticleData(article) {
-  // Use innerText to preserve formatting, or textContent with space normalization
-  let textContent = '';
-  if (article.innerText) {
-    textContent = article.innerText;
-  } else if (article.textContent) {
-    // If innerText not available, normalize spaces in textContent
-    textContent = article.textContent.replace(/\s+/g, ' ').trim();
-  }
+  // Use the helper function for consistent text extraction
+  const textContent = extractTextWithSpaces(article);
   
   // Use stable selectors for title extraction
   const titleSelectors = [
@@ -77,9 +95,11 @@ function extractArticleData(article) {
   let title = '';
   for (const selector of titleSelectors) {
     const titleElement = article.querySelector(selector);
-    if (titleElement && titleElement.textContent.trim()) {
-      title = titleElement.textContent.trim();
-      break;
+    if (titleElement) {
+      title = extractTextWithSpaces(titleElement);
+      if (title) {
+        break;
+      }
     }
   }
   
@@ -87,7 +107,7 @@ function extractArticleData(article) {
   if (!title) {
     const allText = article.querySelectorAll('*');
     for (const elem of allText) {
-      const text = elem.textContent.trim();
+      const text = extractTextWithSpaces(elem);
       if (text.length > 20 && text.length < 200) {
         title = text;
         break;
@@ -266,12 +286,16 @@ function collectFilteredArticles() {
     const hasTrumpInContent = containsTrumpReference(textContent);
     const hasTrumpInTitle = containsTrumpReference(title);
     
-    console.log(`Article ${index + 1}:`, {
-      title: title.substring(0, 50),
-      hasTrumpInContent,
-      hasTrumpInTitle,
-      hasLink: !!link
-    });
+    // Debug logging to see what text we're actually checking
+    if (title.toLowerCase().includes('trump') || textContent.toLowerCase().includes('trump')) {
+      console.log(`Article ${index + 1} - TRUMP FOUND:`, {
+        title: title,
+        titleHasTrump: hasTrumpInTitle,
+        contentSnippet: textContent.substring(0, 200),
+        contentHasTrump: hasTrumpInContent,
+        hasLink: !!link
+      });
+    }
     
     if (!hasTrumpInContent && !hasTrumpInTitle) {
       // Extract clean preview content
@@ -288,14 +312,17 @@ function collectFilteredArticles() {
       ];
       for (const selector of bodySelectors) {
         const bodyElement = article.querySelector(selector);
-        if (bodyElement && bodyElement.innerText && bodyElement.innerText.trim().length > 20) {
-          previewContent = bodyElement.innerText.trim();
-          break;
+        if (bodyElement) {
+          const extractedText = extractTextWithSpaces(bodyElement);
+          if (extractedText.length > 20) {
+            previewContent = extractedText;
+            break;
+          }
         }
       }
       
-      // Clean up and truncate the preview
-      previewContent = previewContent.replace(/\s+/g, ' ').trim();
+      // Clean up and truncate the preview - ensure we don't remove necessary spaces
+      previewContent = previewContent.trim();
       if (previewContent.length > 200) {
         previewContent = previewContent.substring(0, 200) + '...';
       }

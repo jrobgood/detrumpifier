@@ -4,24 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const emptyState = document.getElementById('emptyState');
   const articleCount = document.getElementById('articleCount');
 
-  // Get current tab ID to retrieve stored articles
-  chrome.tabs.getCurrent(function(tab) {
-    if (tab) {
-      loadFilteredArticles(tab.id);
-    }
-  });
+  // Load filtered articles directly from storage
+  loadFilteredArticles();
 
-  function loadFilteredArticles(tabId) {
-    // Request filtered articles from background script
-    chrome.runtime.sendMessage({
-      action: "getFilteredData",
-      tabId: tabId
-    }, function(response) {
+  function loadFilteredArticles() {
+    // Get filtered articles from chrome storage
+    chrome.storage.local.get(['filteredArticles'], function(result) {
       loading.style.display = 'none';
       
-      if (response && response.articles && response.articles.length > 0) {
-        displayArticles(response.articles);
-        articleCount.textContent = response.articles.length;
+      if (result.filteredArticles && result.filteredArticles.length > 0) {
+        displayArticles(result.filteredArticles);
+        articleCount.textContent = result.filteredArticles.length;
       } else {
         showEmptyState();
       }
