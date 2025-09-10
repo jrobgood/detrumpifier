@@ -13,7 +13,9 @@ Either way, everyone wins!
 
 ## Installation
 
-INSTALL AT YOUR OWN RISK:  it's all the way open source, so you can see I am doing nothing sinister here, but I also take no responsibility for unintended consequences.  This extension is designed for users who are willing to turn on Chrome's developer mode.  
+INSTALL AT YOUR OWN RISK:  it's all the way open source, so you can see I am doing nothing sinister here, but my coding chops are so rusty who knows what this thing might do.  It's been pretty well behaved on my own browsers but I take no responsibility for unintended consequences.  
+
+This extension is designed for users who are willing to turn on Chrome's developer mode.  It's generally pretty harmless but keep your chrome up to date and don't install extensions you haven't verified (maybe including this one?!)   
 
 ### Installation from GitHub
 
